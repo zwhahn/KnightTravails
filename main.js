@@ -67,8 +67,9 @@ function getNextMoves ([xNode, yNode]) {
 }
 
 function visited (visitedSquares, move) {
-    for (node in visitedSquares) {
-        if (node.position == move.position) {
+    for (let node of visitedSquares) {
+        console.log("node ", node)
+        if (node.position[0] == move.position[0] && node.position[1] == move.position[1]) {
             return true
         }
     }
