@@ -1,5 +1,5 @@
 function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
-    let start = new Node([xStart, xEnd]);
+    let start = new Node([xStart, yStart]);
     const end = new Node([xEnd, yEnd]);
     let queue = [start];
     let visitedSquares = [start];
@@ -8,8 +8,8 @@ function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
         let current = queue.shift()
         // console.log("current: ", current.position)
 
-        if (current.position == end.position) {
-            // console.log("Found Path")
+        if (current.position[0] == end.position[0] && current.position[1] == end.position[1]) {
+            console.log("Found Path")
             return constructPath(current);
         }
 
@@ -17,7 +17,7 @@ function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
         // console.log("next moves:", nextMoves)
 
         for (let pos of nextMoves) {
-            let move = new Node(pos, current.position);
+            let move = new Node(pos, current);
             if (!visited(visitedSquares, move)) {
                 visitedSquares.push(move);
                 queue.push(move);
