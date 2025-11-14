@@ -1,4 +1,12 @@
 function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
+    if (xStart < 0 | xStart > 7 | yStart < 0 | yStart > 7) {
+        console.log("Error: Illegal start position");
+        return;
+    }
+    if (xEnd < 0 | xEnd > 7 | yEnd < 0 | yEnd > 7) {
+        console.log("Error: Illegal end position");
+        return;
+    }
     let start = new Node([xStart, yStart]);
     const end = new Node([xEnd, yEnd]);
     let queue = [start];
@@ -109,4 +117,6 @@ knightMoves([3,3],[4,3]);
 
 knightMoves([0,0],[4,3]);
 
-knightMoves([0,0],[4,3]);
+knightMoves([0,-1],[4,3]);
+
+knightMoves([0,0],[4,9]);
