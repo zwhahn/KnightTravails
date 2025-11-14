@@ -10,7 +10,7 @@ function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
 
         if (current.position[0] == end.position[0] && current.position[1] == end.position[1]) {
             console.log("Found Path")
-            return constructPath(current);
+            return constructPath(visitedSquares, current, start);
         }
 
         let nextMoves = getNextMoves(current.position);
@@ -68,12 +68,33 @@ function getNextMoves ([xNode, yNode]) {
 
 function visited (visitedSquares, move) {
     for (let node of visitedSquares) {
-        console.log("node ", node)
         if (node.position[0] == move.position[0] && node.position[1] == move.position[1]) {
             return true
         }
     }
     return false
+}
+
+function constructPath (visitedSquares, endNode, startNode) {
+    let path = [endNode.position];
+    let parentNode = endNode.parent;
+    
+    while (visitedSquares.length > 0) {
+        let node = visitedSquares.shift()
+        console.log('node.position: ', node.position);
+        console.log('node.parent: ', node.parent);
+        console.log('startNode.position: ', startNode.position);
+        if (node.position[0] == parentNode.position[0] && node.position[1] == parentNode.position[1]) {
+            path.push(node.position)
+            if (node.parent == null) {
+                console.log("END FOUND")
+                path.push(node.position);
+                break;
+            }
+        }
+    }
+
+    return path
 }
 
 class Node {
@@ -83,4 +104,4 @@ class Node {
     }
 }
 
-knightMoves([3,3],[4,3])
+console.log(knightMoves([3,3],[4,3]));
