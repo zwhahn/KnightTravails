@@ -50,8 +50,8 @@ function getNextMoves ([xNode, yNode]) {
         moves.push([xNode + 1, yNode - 2]);
     }
 
-    if (xNode + 2 <= 7 && yNode + 1 >= 0){
-        moves.push([xNode + 2, yNode - 1]);
+    if (xNode + 2 <= 7 && yNode + 1 <= 7){
+        moves.push([xNode + 2, yNode + 1]);
     }
 
     if (xNode + 2 <= 7 && yNode + 1 <= 7){
@@ -106,5 +106,7 @@ class Node {
 }
 
 knightMoves([3,3],[4,3]);
+
+knightMoves([0,0],[4,3]);
 
 knightMoves([0,0],[4,3]);
