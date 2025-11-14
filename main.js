@@ -9,7 +9,6 @@ function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
         // console.log("current: ", current.position)
 
         if (current.position[0] == end.position[0] && current.position[1] == end.position[1]) {
-            console.log("Found Path")
             return constructPath(visitedSquares, current, start);
         }
 
@@ -30,7 +29,7 @@ function knightMoves ([xStart, yStart], [xEnd, yEnd]) {
 function getNextMoves ([xNode, yNode]) {
     let moves = [];
 
-    // Check legal moves add to move array
+    // Check legal moves, add to move array
     if (xNode - 1 >= 0 && yNode + 2 <= 7) {
         moves.push([xNode - 1, yNode + 2]);
     }
@@ -76,25 +75,27 @@ function visited (visitedSquares, move) {
 }
 
 function constructPath (visitedSquares, endNode, startNode) {
-    let path = [endNode.position];
-    let parentNode = endNode.parent;
+    let path = [];
+    let current = endNode;
+    let moveCount = -1; // Ignore starting square
     
-    while (visitedSquares.length > 0) {
-        let node = visitedSquares.shift()
-        console.log('node.position: ', node.position);
-        console.log('node.parent: ', node.parent);
-        console.log('startNode.position: ', startNode.position);
-        if (node.position[0] == parentNode.position[0] && node.position[1] == parentNode.position[1]) {
-            path.push(node.position)
-            if (node.parent == null) {
-                console.log("END FOUND")
-                path.push(node.position);
-                break;
-            }
-        }
+    while (current != null) {
+        path.push(current.position);
+        current = current.parent;
+        moveCount++
     }
 
-    return path
+    reversePath = []
+    while (path.length != 0) {
+        temp = path.pop()
+        reversePath.push(temp)
+    }
+
+    console.log(`You made it in ${moveCount} moves! Here's your path:`)
+    for (let move of reversePath) {
+        console.log(move);
+    }
+    return reversePath
 }
 
 class Node {
@@ -104,4 +105,6 @@ class Node {
     }
 }
 
-console.log(knightMoves([3,3],[4,3]));
+knightMoves([3,3],[4,3]);
+
+knightMoves([0,0],[4,3]);
